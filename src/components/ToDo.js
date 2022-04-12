@@ -7,11 +7,13 @@ export default function ToDo() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setToDoArray((prevArray) => [
-      ...prevArray,
-      { id: toDoArray.length + 1, text: toDoItem, checked: false },
-    ]);
-    setToDoItem("");
+    if (toDoItem !== "") {
+      setToDoArray((prevArray) => [
+        ...prevArray,
+        { id: toDoArray.length + 1, text: toDoItem, checked: false },
+      ]);
+      setToDoItem("");
+    }
   }
 
   function handleChange(event) {
