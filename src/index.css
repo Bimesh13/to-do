@@ -56,11 +56,20 @@ form {
 
 .toDo--list {
   width: 700px;
-  height: 300px;
+  height: 400px;
   background-color: #2b283a;
   margin: auto;
   border-radius: 7px;
   margin-top: 36px;
   padding: 2px 15px;
   color: white;
+}
+
+.toDo--item {
+  margin-top: 13px;
+  font-size: 15px;
+}
+
+.delete--button {
+  float: right;
 }
