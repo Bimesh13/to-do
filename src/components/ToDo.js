@@ -9,7 +9,7 @@ export default function ToDo() {
     event.preventDefault();
     setToDoArray((prevArray) => [
       ...prevArray,
-      { id: toDoArray.length + 1, text: toDoItem },
+      { id: toDoArray.length + 1, text: toDoItem, checked: false },
     ]);
     setToDoItem("");
   }
@@ -18,8 +18,14 @@ export default function ToDo() {
     setToDoItem(event.target.value);
   }
 
+  function completedToDo() {}
+
   const arrayElements = toDoArray.map((thing) => (
-    <h1 key={thing.id}>{thing.text}</h1>
+    <label>
+      <input type="checkbox" checked={thing.checked} onChange={completedToDo} />
+      {thing.text}
+      <br />
+    </label>
   ));
 
   return (
@@ -37,7 +43,7 @@ export default function ToDo() {
           Add ToDo
         </button>
       </form>
-      {arrayElements}
+      <div className="toDo--list">{arrayElements}</div>
     </div>
   );
 }
