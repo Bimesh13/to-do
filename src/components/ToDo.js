@@ -30,6 +30,17 @@ export default function ToDo() {
     setToDoArray(item);
   }
 
+  function editToDo(id) {
+    const newValue = prompt("Edit the to do task:");
+    const item = toDoArray.map((todoitem) => {
+      if (todoitem.id === id) {
+        return { ...todoitem, text: newValue };
+      }
+      return todoitem;
+    });
+    setToDoArray(item);
+  }
+
   function deleteToDo(id) {
     const item = toDoArray.filter((todoitem) => todoitem.id !== id);
     setToDoArray(item);
@@ -45,6 +56,10 @@ export default function ToDo() {
       {thing.checked ? <del>{thing.text}</del> : thing.text}
       <button onClick={() => deleteToDo(thing.id)} className="delete--button">
         Delete
+      </button>
+
+      <button onClick={() => editToDo(thing.id)} className="edit--button">
+        Edit
       </button>
       <br />
     </div>

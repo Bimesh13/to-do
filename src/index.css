@@ -70,6 +70,17 @@ form {
   font-size: 15px;
 }
 
+.edit--button {
+  float: right;
+  margin-right: 5px;
+  color: #2b283a;
+  border: 3px solid #ffffff;
+  background-color: #ffffff;
+}
+
 .delete--button {
   float: right;
+  background-color: #f55a5a;
+  color: #ffffff;
+  border: 3px solid #f55a5a;
 }
