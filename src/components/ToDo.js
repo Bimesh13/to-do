@@ -5,17 +5,40 @@ export default function ToDo() {
 
   const [toDoItem, setToDoItem] = React.useState("");
 
+  const [buttonText, setButtonText] = React.useState({
+    status: "add",
+    text: "Add ToDo",
+  });
+
+  const [editText, setEditText] = React.useState();
+
   function handleSubmit(event) {
     event.preventDefault();
     if (toDoItem !== "") {
-      setToDoArray((prevArray) => [
-        ...prevArray,
-        { id: toDoArray.length + 1, text: toDoItem, checked: false },
-      ]);
-      setToDoItem("");
+      if (buttonText.status === "add") {
+        setToDoArray((prevArray) => [
+          ...prevArray,
+          { id: toDoArray.length + 1, text: toDoItem, checked: false },
+        ]);
+        setToDoItem("");
+      } else {
+        const item = toDoArray.map((todoitem) => {
+          if (todoitem.id === editText) {
+            console.log("Inside", toDoItem);
+            return { ...todoitem, text: toDoItem };
+          }
+          return todoitem;
+        });
+        setToDoArray(item);
+        setToDoItem("");
+        resetForm();
+      }
     }
   }
 
+  function resetForm() {
+    setButtonText({ status: "add", text: "Add ToDo" });
+  }
   function handleChange(event) {
     setToDoItem(event.target.value);
   }
@@ -30,15 +53,17 @@ export default function ToDo() {
     setToDoArray(item);
   }
 
-  function editToDo(id) {
-    const newValue = prompt("Edit the to do task:");
-    const item = toDoArray.map((todoitem) => {
-      if (todoitem.id === id) {
-        return { ...todoitem, text: newValue };
-      }
-      return todoitem;
-    });
-    setToDoArray(item);
+  function editToDo(thing) {
+    setButtonText({ status: "edit", text: "Edit ToDo" });
+    setEditText(thing.id);
+    // const newValue = prompt("Edit the to do task:");
+    // const item = toDoArray.map((todoitem) => {
+    //   if (todoitem.id === id) {
+    //     return { ...todoitem, text: newValue };
+    //   }
+    //   return todoitem;
+    // });
+    // setToDoArray(item);
   }
 
   function deleteToDo(id) {
@@ -58,7 +83,7 @@ export default function ToDo() {
         Delete
       </button>
 
-      <button onClick={() => editToDo(thing.id)} className="edit--button">
+      <button onClick={() => editToDo(thing)} className="edit--button">
         Edit
       </button>
       <br />
@@ -77,7 +102,7 @@ export default function ToDo() {
         />
 
         <button type="submit" className="toDo--button">
-          Add ToDo
+          {buttonText.text}
         </button>
       </form>
       <div className="toDo--list">{arrayElements}</div>
